@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		347A86E02B90345300C85380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86DF2B90345300C85380 /* AppDelegate.swift */; };
+		347A86E22B90345300C85380 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 347A86E12B90345300C85380 /* GameScene.sks */; };
+		347A86E42B90345300C85380 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 347A86E32B90345300C85380 /* Actions.sks */; };
+		347A86E62B90345300C85380 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86E52B90345300C85380 /* GameScene.swift */; };
+		347A86E82B90345300C85380 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86E72B90345300C85380 /* GameViewController.swift */; };
+		347A86EB2B90345300C85380 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347A86E92B90345300C85380 /* Main.storyboard */; };
+		347A86ED2B90345600C85380 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 347A86EC2B90345600C85380 /* Assets.xcassets */; };
+		347A86F02B90345600C85380 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347A86EE2B90345600C85380 /* LaunchScreen.storyboard */; };
+		347A86FA2B90345700C85380 /* Worm_JumpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86F92B90345700C85380 /* Worm_JumpTests.swift */; };
+		347A87042B90345700C85380 /* Worm_JumpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A87032B90345700C85380 /* Worm_JumpUITests.swift */; };
+		347A87062B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A87052B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		347A86F62B90345700C85380 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 347A86D42B90345300C85380 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 347A86DB2B90345300C85380;
+			remoteInfo = "Worm Jump";
+		};
+		347A87002B90345700C85380 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 347A86D42B90345300C85380 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 347A86DB2B90345300C85380;
+			remoteInfo = "Worm Jump";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		347A86DC2B90345300C85380 /* Worm Jump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Worm Jump.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		347A86DF2B90345300C85380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		347A86E12B90345300C85380 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		347A86E32B90345300C85380 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		347A86E52B90345300C85380 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		347A86E72B90345300C85380 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		347A86EA2B90345300C85380 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		347A86EC2B90345600C85380 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		347A86EF2B90345600C85380 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		347A86F52B90345700C85380 /* Worm JumpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Worm JumpTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		347A86F92B90345700C85380 /* Worm_JumpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worm_JumpTests.swift; sourceTree = "<group>"; };
+		347A86FF2B90345700C85380 /* Worm JumpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Worm JumpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		347A87032B90345700C85380 /* Worm_JumpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worm_JumpUITests.swift; sourceTree = "<group>"; };
+		347A87052B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worm_JumpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		347A86D92B90345300C85380 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		347A86F22B90345700C85380 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		347A86FC2B90345700C85380 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		347A86D32B90345300C85380 = {
+			isa = PBXGroup;
+			children = (
+				347A86DE2B90345300C85380 /* Worm Jump */,
+				347A86F82B90345700C85380 /* Worm JumpTests */,
+				347A87022B90345700C85380 /* Worm JumpUITests */,
+				347A86DD2B90345300C85380 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		347A86DD2B90345300C85380 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				347A86DC2B90345300C85380 /* Worm Jump.app */,
+				347A86F52B90345700C85380 /* Worm JumpTests.xctest */,
+				347A86FF2B90345700C85380 /* Worm JumpUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		347A86DE2B90345300C85380 /* Worm Jump */ = {
+			isa = PBXGroup;
+			children = (
+				347A86DF2B90345300C85380 /* AppDelegate.swift */,
+				347A86E12B90345300C85380 /* GameScene.sks */,
+				347A86E32B90345300C85380 /* Actions.sks */,
+				347A86E52B90345300C85380 /* GameScene.swift */,
+				347A86E72B90345300C85380 /* GameViewController.swift */,
+				347A86E92B90345300C85380 /* Main.storyboard */,
+				347A86EC2B90345600C85380 /* Assets.xcassets */,
+				347A86EE2B90345600C85380 /* LaunchScreen.storyboard */,
+			);
+			path = "Worm Jump";
+			sourceTree = "<group>";
+		};
+		347A86F82B90345700C85380 /* Worm JumpTests */ = {
+			isa = PBXGroup;
+			children = (
+				347A86F92B90345700C85380 /* Worm_JumpTests.swift */,
+			);
+			path = "Worm JumpTests";
+			sourceTree = "<group>";
+		};
+		347A87022B90345700C85380 /* Worm JumpUITests */ = {
+			isa = PBXGroup;
+			children = (
+				347A87032B90345700C85380 /* Worm_JumpUITests.swift */,
+				347A87052B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift */,
+			);
+			path = "Worm JumpUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		347A86DB2B90345300C85380 /* Worm Jump */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 347A87092B90345700C85380 /* Build configuration list for PBXNativeTarget "Worm Jump" */;
+			buildPhases = (
+				347A86D82B90345300C85380 /* Sources */,
+				347A86D92B90345300C85380 /* Frameworks */,
+				347A86DA2B90345300C85380 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Worm Jump";
+			productName = "Worm Jump";
+			productReference = 347A86DC2B90345300C85380 /* Worm Jump.app */;
+			productType = "com.apple.product-type.application";
+		};
+		347A86F42B90345700C85380 /* Worm JumpTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 347A870C2B90345700C85380 /* Build configuration list for PBXNativeTarget "Worm JumpTests" */;
+			buildPhases = (
+				347A86F12B90345700C85380 /* Sources */,
+				347A86F22B90345700C85380 /* Frameworks */,
+				347A86F32B90345700C85380 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				347A86F72B90345700C85380 /* PBXTargetDependency */,
+			);
+			name = "Worm JumpTests";
+			productName = "Worm JumpTests";
+			productReference = 347A86F52B90345700C85380 /* Worm JumpTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		347A86FE2B90345700C85380 /* Worm JumpUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 347A870F2B90345700C85380 /* Build configuration list for PBXNativeTarget "Worm JumpUITests" */;
+			buildPhases = (
+				347A86FB2B90345700C85380 /* Sources */,
+				347A86FC2B90345700C85380 /* Frameworks */,
+				347A86FD2B90345700C85380 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				347A87012B90345700C85380 /* PBXTargetDependency */,
+			);
+			name = "Worm JumpUITests";
+			productName = "Worm JumpUITests";
+			productReference = 347A86FF2B90345700C85380 /* Worm JumpUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		347A86D42B90345300C85380 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					347A86DB2B90345300C85380 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					347A86F42B90345700C85380 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 347A86DB2B90345300C85380;
+					};
+					347A86FE2B90345700C85380 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 347A86DB2B90345300C85380;
+					};
+				};
+			};
+			buildConfigurationList = 347A86D72B90345300C85380 /* Build configuration list for PBXProject "Worm Jump" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 347A86D32B90345300C85380;
+			productRefGroup = 347A86DD2B90345300C85380 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				347A86DB2B90345300C85380 /* Worm Jump */,
+				347A86F42B90345700C85380 /* Worm JumpTests */,
+				347A86FE2B90345700C85380 /* Worm JumpUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		347A86DA2B90345300C85380 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				347A86EB2B90345300C85380 /* Main.storyboard in Resources */,
+				347A86E22B90345300C85380 /* GameScene.sks in Resources */,
+				347A86ED2B90345600C85380 /* Assets.xcassets in Resources */,
+				347A86F02B90345600C85380 /* LaunchScreen.storyboard in Resources */,
+				347A86E42B90345300C85380 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		347A86F32B90345700C85380 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		347A86FD2B90345700C85380 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		347A86D82B90345300C85380 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				347A86E62B90345300C85380 /* GameScene.swift in Sources */,
+				347A86E82B90345300C85380 /* GameViewController.swift in Sources */,
+				347A86E02B90345300C85380 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		347A86F12B90345700C85380 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				347A86FA2B90345700C85380 /* Worm_JumpTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		347A86FB2B90345700C85380 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				347A87042B90345700C85380 /* Worm_JumpUITests.swift in Sources */,
+				347A87062B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		347A86F72B90345700C85380 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 347A86DB2B90345300C85380 /* Worm Jump */;
+			targetProxy = 347A86F62B90345700C85380 /* PBXContainerItemProxy */;
+		};
+		347A87012B90345700C85380 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 347A86DB2B90345300C85380 /* Worm Jump */;
+			targetProxy = 347A87002B90345700C85380 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		347A86E92B90345300C85380 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				347A86EA2B90345300C85380 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		347A86EE2B90345600C85380 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				347A86EF2B90345600C85380 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		347A87072B90345700C85380 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		347A87082B90345700C85380 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		347A870A2B90345700C85380 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wormjump.Worm-Jump";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		347A870B2B90345700C85380 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wormjump.Worm-Jump";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		347A870D2B90345700C85380 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wormjump.Worm-JumpTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Worm Jump.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Worm Jump";
+			};
+			name = Debug;
+		};
+		347A870E2B90345700C85380 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wormjump.Worm-JumpTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Worm Jump.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Worm Jump";
+			};
+			name = Release;
+		};
+		347A87102B90345700C85380 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wormjump.Worm-JumpUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Worm Jump";
+			};
+			name = Debug;
+		};
+		347A87112B90345700C85380 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wormjump.Worm-JumpUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Worm Jump";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		347A86D72B90345300C85380 /* Build configuration list for PBXProject "Worm Jump" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				347A87072B90345700C85380 /* Debug */,
+				347A87082B90345700C85380 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		347A87092B90345700C85380 /* Build configuration list for PBXNativeTarget "Worm Jump" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				347A870A2B90345700C85380 /* Debug */,
+				347A870B2B90345700C85380 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		347A870C2B90345700C85380 /* Build configuration list for PBXNativeTarget "Worm JumpTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				347A870D2B90345700C85380 /* Debug */,
+				347A870E2B90345700C85380 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		347A870F2B90345700C85380 /* Build configuration list for PBXNativeTarget "Worm JumpUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				347A87102B90345700C85380 /* Debug */,
+				347A87112B90345700C85380 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 347A86D42B90345300C85380 /* Project object */;
+}
