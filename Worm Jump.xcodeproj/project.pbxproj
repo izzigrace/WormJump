@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		347A86E02B90345300C85380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86DF2B90345300C85380 /* AppDelegate.swift */; };
-		347A86E22B90345300C85380 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 347A86E12B90345300C85380 /* GameScene.sks */; };
-		347A86E42B90345300C85380 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 347A86E32B90345300C85380 /* Actions.sks */; };
 		347A86E62B90345300C85380 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86E52B90345300C85380 /* GameScene.swift */; };
 		347A86E82B90345300C85380 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86E72B90345300C85380 /* GameViewController.swift */; };
 		347A86EB2B90345300C85380 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347A86E92B90345300C85380 /* Main.storyboard */; };
@@ -18,6 +16,7 @@
 		347A86FA2B90345700C85380 /* Worm_JumpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86F92B90345700C85380 /* Worm_JumpTests.swift */; };
 		347A87042B90345700C85380 /* Worm_JumpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A87032B90345700C85380 /* Worm_JumpUITests.swift */; };
 		347A87062B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A87052B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift */; };
+		34A55F3B2B918A6000162E58 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 34A55F3A2B918A6000162E58 /* GameScene.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +39,6 @@
 /* Begin PBXFileReference section */
 		347A86DC2B90345300C85380 /* Worm Jump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Worm Jump.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		347A86DF2B90345300C85380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		347A86E12B90345300C85380 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		347A86E32B90345300C85380 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		347A86E52B90345300C85380 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		347A86E72B90345300C85380 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		347A86EA2B90345300C85380 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -52,6 +49,7 @@
 		347A86FF2B90345700C85380 /* Worm JumpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Worm JumpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		347A87032B90345700C85380 /* Worm_JumpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worm_JumpUITests.swift; sourceTree = "<group>"; };
 		347A87052B90345700C85380 /* Worm_JumpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worm_JumpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		34A55F3A2B918A6000162E58 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				347A86DF2B90345300C85380 /* AppDelegate.swift */,
-				347A86E12B90345300C85380 /* GameScene.sks */,
-				347A86E32B90345300C85380 /* Actions.sks */,
+				34A55F3A2B918A6000162E58 /* GameScene.sks */,
 				347A86E52B90345300C85380 /* GameScene.swift */,
 				347A86E72B90345300C85380 /* GameViewController.swift */,
 				347A86E92B90345300C85380 /* Main.storyboard */,
@@ -236,10 +233,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				347A86EB2B90345300C85380 /* Main.storyboard in Resources */,
-				347A86E22B90345300C85380 /* GameScene.sks in Resources */,
+				34A55F3B2B918A6000162E58 /* GameScene.sks in Resources */,
 				347A86ED2B90345600C85380 /* Assets.xcassets in Resources */,
 				347A86F02B90345600C85380 /* LaunchScreen.storyboard in Resources */,
-				347A86E42B90345300C85380 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
