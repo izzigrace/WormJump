@@ -14,10 +14,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Declare a variable to hold the player character (a sprite node)
     var player: SKSpriteNode!
     var grass: SKShapeNode!
+    var isHalfed = false
     
     
     // Function called when the scene is presented in a view
     override func didMove(to view: SKView) {
+        print("hello")
     backgroundColor = UIColor(named: "sky")!
         
         // Set this scene as the delegate to handle physics-related contacts
@@ -46,6 +48,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spawnForever = SKAction.repeatForever(spawnThenDelay)
         run(spawnForever)
         
+        //spawn clouds
+        let spawnCloud = SKAction.run { [weak self] in
+            self?.spawnClouds()
+        }
+        let delayCloud = SKAction.wait(forDuration: 5)
+        let spawnThenDelayCloud = SKAction.sequence([spawnCloud, delayCloud])
+        let spawnForeverCloud = SKAction.repeatForever(spawnThenDelayCloud)
+        run(spawnForeverCloud)
+        
     }
     
     // Function to create the player character
@@ -70,8 +81,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func spawnObstacle() {
-        let obstacles = ["rock1", "rock2", "rock3"]
-        let randomObstacle = SKTexture(imageNamed: obstacles[Int(arc4random_uniform(3))])
+        let obstacles = ["rock1", "rock2", "rock3", "flower"]
+        let randomImage = obstacles[Int(arc4random_uniform(4))]
+        let randomObstacle = SKTexture(imageNamed: randomImage)
         let obstacle = SKSpriteNode(texture: randomObstacle, size: CGSize(width: 90, height: 90))
         obstacle.position = CGPoint(x: size.width + 20, y: grass.position.y + grass.frame.size.height / 2 + obstacle.size.height / 2 - 20)
         obstacle.physicsBody = SKPhysicsBody(rectangleOf: obstacle.size)
@@ -87,6 +99,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let remove = SKAction.removeFromParent()
         let sequence = SKAction.sequence([moveLeft, remove])
         obstacle.run(sequence)
+    }
+    
+    func spawnClouds() {
+        let heights = [300, 350, 400, 450, 460, 480, 500, 525, 540, 550]
+        let randomHeight = heights[Int(arc4random_uniform(10))]
+        let image = SKTexture(imageNamed: "cloud")
+        let cloud = SKSpriteNode(texture: image, size: CGSize(width: 200, height: 200))
+        cloud.position = CGPoint(x: size.width + 20, y: grass.position.y + CGFloat(randomHeight))
+        cloud.physicsBody = SKPhysicsBody(rectangleOf: cloud.size)
+        cloud.physicsBody?.isDynamic = false
+        cloud.physicsBody?.affectedByGravity = false
+        cloud.physicsBody?.categoryBitMask = 10
+        cloud.zPosition = -1
+        addChild(cloud)
+        
+        
+        let moveLeft = SKAction.moveBy(x: -1200, y: 0, duration: 20)
+        let remove = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([moveLeft, remove])
+        cloud.run(sequence)
     }
     
     
@@ -106,17 +138,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Check if the contact is between the player and the rock obstacle
         if contact.bodyA.categoryBitMask == 1 && contact.bodyB.categoryBitMask == 2 {
             // Player collided with an obstacle
-            if let rock = contact.bodyB.node as? SKSpriteNode {
-                // Remove the obstacle from the scene
-                rock.removeFromParent()
-            }
-        } else if contact.bodyA.categoryBitMask == 2 && contact.bodyB.categoryBitMask == 1 {
-            // Player collided with an obstacle
-            if let rock = contact.bodyA.node as? SKSpriteNode {
-                // Remove the obstacle from the scene
-                rock.removeFromParent()
+            if (isHalfed) {
+                handleGameOver()
+            } else {
+                isHalfed = true
+                if let playerNode = contact.bodyA.node as? SKSpriteNode {
+                    playerNode.texture = SKTexture(imageNamed: "halfworm")
+                    playerNode.size = CGSize(width: 55, height: 80)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+                       // Excecute after 30 seconds
+                        self.isHalfed = false
+                        playerNode.texture = SKTexture(imageNamed: "worm")
+                        playerNode.size = CGSize(width: 80, height: 80)
+                    }
+                }
             }
         }
+    }
+    
+    func handleGameOver() {
+        self.isPaused = true
     }
     
 }
