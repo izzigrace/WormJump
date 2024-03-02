@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34071DBA2B92A4E70046982D /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34071DB92B92A4E70046982D /* MainMenuScene.swift */; };
+		342CC5032B92BB7E006A7EA0 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5022B92BB7E006A7EA0 /* GameOver.swift */; };
 		347A86E02B90345300C85380 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86DF2B90345300C85380 /* AppDelegate.swift */; };
 		347A86E62B90345300C85380 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86E52B90345300C85380 /* GameScene.swift */; };
 		347A86E82B90345300C85380 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A86E72B90345300C85380 /* GameViewController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		34071DB92B92A4E70046982D /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		342CC5022B92BB7E006A7EA0 /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		347A86DC2B90345300C85380 /* Worm Jump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Worm Jump.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		347A86DF2B90345300C85380 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		347A86E52B90345300C85380 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				34A55F3A2B918A6000162E58 /* GameScene.sks */,
 				34071DB92B92A4E70046982D /* MainMenuScene.swift */,
 				347A86E52B90345300C85380 /* GameScene.swift */,
+				342CC5022B92BB7E006A7EA0 /* GameOver.swift */,
 				347A86E72B90345300C85380 /* GameViewController.swift */,
 				347A86E92B90345300C85380 /* Main.storyboard */,
 				347A86EC2B90345600C85380 /* Assets.xcassets */,
@@ -266,6 +269,7 @@
 				347A86E62B90345300C85380 /* GameScene.swift in Sources */,
 				347A86E82B90345300C85380 /* GameViewController.swift in Sources */,
 				34071DBA2B92A4E70046982D /* MainMenuScene.swift in Sources */,
+				342CC5032B92BB7E006A7EA0 /* GameOver.swift in Sources */,
 				347A86E02B90345300C85380 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

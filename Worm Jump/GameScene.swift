@@ -14,9 +14,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Declare a variable to hold the player character (a sprite node)
     var player: SKSpriteNode!
     var grass: SKShapeNode!
-    var gameOverBanner: SKSpriteNode!
-    var homeButton: SKShapeNode!
-    var restartButton: SKShapeNode!
     var isHalfed = false
     var firstTerrain = true
     
@@ -73,37 +70,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spawnForeverTerrain = SKAction.repeatForever(spawnThenDelayTerrain)
         run(spawnForeverTerrain)
         
-        // Create game over banner
-        let bannerTexture = SKTexture(imageNamed: "gameover")
-        gameOverBanner = SKSpriteNode(texture: bannerTexture, size: CGSize(width: 300, height: 300))
-        gameOverBanner.position = CGPoint(x: 0, y: 0)
-        gameOverBanner.zPosition = 10
-        gameOverBanner.isHidden = true
-        addChild(gameOverBanner)
-        //make home button
-        homeButton = SKShapeNode(rectOf: CGSize(width: 60, height: 60))
-        homeButton.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 60, height: 60))
-        homeButton.fillColor = .clear
-        homeButton.strokeColor = .red
-        homeButton.physicsBody?.isDynamic = false
-        homeButton.physicsBody?.affectedByGravity = false
-        homeButton.position = CGPoint(x: -50, y: -100)
-        homeButton.zPosition = 15
-        homeButton.isHidden = true
-        homeButton.name = "homeButton"
-        addChild(homeButton)
-        //make restart button
-        restartButton = SKShapeNode(rectOf: CGSize(width: 60, height: 60))
-        restartButton.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 60, height: 60))
-        restartButton.fillColor = .clear
-        restartButton.strokeColor = .red
-        restartButton.physicsBody?.isDynamic = false
-        restartButton.physicsBody?.affectedByGravity = false
-        restartButton.position = CGPoint(x: 50, y: -100)
-        restartButton.zPosition = 15
-        restartButton.isHidden = true
-        restartButton.name = "restartButton"
-        addChild(restartButton)
         
     }
     
@@ -221,39 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Function called when a touch begins on the scene
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if (gameOverBanner.isHidden) {
-            jump()
-        }
-        
-        //handle touches on the home and restart buttons
-        for touch in touches {
-            let location = touch.location(in: self)
-            let touchedNode = atPoint(location)
-            
-            if touchedNode.name == "homeButton" {
-                if let view = self.view {
-                    let sceneSize = view.bounds.size
-                    let scene = MainMenuScene(size: sceneSize)
-                    scene.scaleMode = .aspectFill
-                    scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
-                    view.ignoresSiblingOrder = true
-                    view.showsFPS = true
-                    view.showsNodeCount = true
-                    view.presentScene(scene)
-                }
-            } else if touchedNode.name == "restartButton" {
-                if let view = self.view {
-                    let sceneSize = view.bounds.size
-                    let scene = GameScene(size: sceneSize)
-                    scene.scaleMode = .aspectFill
-                    scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
-                    view.ignoresSiblingOrder = true
-                    view.showsFPS = true
-                    view.showsNodeCount = true
-                    view.presentScene(scene)
-                }
-            }
-        }
+        jump()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -280,9 +214,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func handleGameOver() {
         self.isPaused = true
-        gameOverBanner.isHidden = false
-        homeButton.isHidden = false
-        restartButton.isHidden = false
+        if let view = self.view {
+            let sceneSize = view.bounds.size
+            let scene = GameOverScene(size: sceneSize)
+            scene.scaleMode = .aspectFill
+            scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+            view.presentScene(scene)
+        }
     }
     
 }
