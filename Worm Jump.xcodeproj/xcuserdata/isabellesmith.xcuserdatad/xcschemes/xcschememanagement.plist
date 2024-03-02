@@ -6,8 +6,28 @@
 	<dict>
 		<key>Worm Jump.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>347A86DB2B90345300C85380</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>347A86F42B90345700C85380</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>347A86FE2B90345700C85380</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
