@@ -14,13 +14,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Declare a variable to hold the player character (a sprite node)
     var player: SKSpriteNode!
     var grass: SKShapeNode!
+    var gameOverBanner: SKSpriteNode!
+    var homeButton: SKShapeNode!
+    var restartButton: SKShapeNode!
     var isHalfed = false
+    var firstTerrain = true
     
     
     // Function called when the scene is presented in a view
     override func didMove(to view: SKView) {
-        print("hello")
-    backgroundColor = UIColor(named: "sky")!
+        backgroundColor = UIColor(named: "sky")!
         
         // Set this scene as the delegate to handle physics-related contacts
         physicsWorld.contactDelegate = self
@@ -35,6 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Calculate the position for the player's bottom at the bottom of the screen
         let bottomY = -size.height / 2 + grass.frame.size.height / 2
         grass.position = CGPoint(x: 0, y: bottomY)
+        grass.zPosition = -1
         addChild(grass)
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -20)
@@ -57,6 +61,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spawnForeverCloud = SKAction.repeatForever(spawnThenDelayCloud)
         run(spawnForeverCloud)
         
+        //spawn initial terrain
+        spawnInitialTerrain()
+        
+        //spawn repeating terrain
+        let spawnTerrain = SKAction.run { [weak self] in
+            self?.spawnTerrain()
+        }
+        let delayTerrain = SKAction.wait(forDuration: 1.27)
+        let spawnThenDelayTerrain = SKAction.sequence([spawnTerrain, delayTerrain])
+        let spawnForeverTerrain = SKAction.repeatForever(spawnThenDelayTerrain)
+        run(spawnForeverTerrain)
+        
+        // Create game over banner
+        let bannerTexture = SKTexture(imageNamed: "gameover")
+        gameOverBanner = SKSpriteNode(texture: bannerTexture, size: CGSize(width: 300, height: 300))
+        gameOverBanner.position = CGPoint(x: 0, y: 0)
+        gameOverBanner.zPosition = 10
+        gameOverBanner.isHidden = true
+        addChild(gameOverBanner)
+        //make home button
+        homeButton = SKShapeNode(rectOf: CGSize(width: 60, height: 60))
+        homeButton.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 60, height: 60))
+        homeButton.fillColor = .clear
+        homeButton.strokeColor = .red
+        homeButton.physicsBody?.isDynamic = false
+        homeButton.physicsBody?.affectedByGravity = false
+        homeButton.position = CGPoint(x: -50, y: -100)
+        homeButton.zPosition = 15
+        homeButton.isHidden = true
+        homeButton.name = "homeButton"
+        addChild(homeButton)
+        //make restart button
+        restartButton = SKShapeNode(rectOf: CGSize(width: 60, height: 60))
+        restartButton.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 60, height: 60))
+        restartButton.fillColor = .clear
+        restartButton.strokeColor = .red
+        restartButton.physicsBody?.isDynamic = false
+        restartButton.physicsBody?.affectedByGravity = false
+        restartButton.position = CGPoint(x: 50, y: -100)
+        restartButton.zPosition = 15
+        restartButton.isHidden = true
+        restartButton.name = "restartButton"
+        addChild(restartButton)
+        
     }
     
     // Function to create the player character
@@ -65,6 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player = SKSpriteNode(texture: playerTexture, size: CGSize(width: 80, height: 80))
         player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         player.position = .init(x: -100, y: 0)
+        player.zPosition = 10
         addChild(player)
         // Create a physics body for the player with a rectangle of its size
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
@@ -84,9 +133,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let obstacles = ["rock1", "rock2", "rock3", "flower"]
         let randomImage = obstacles[Int(arc4random_uniform(4))]
         let randomObstacle = SKTexture(imageNamed: randomImage)
-        let obstacle = SKSpriteNode(texture: randomObstacle, size: CGSize(width: 90, height: 90))
+        let obstacle = SKSpriteNode(texture: randomObstacle, size: CGSize(width: 90, height: 80))
         obstacle.position = CGPoint(x: size.width + 20, y: grass.position.y + grass.frame.size.height / 2 + obstacle.size.height / 2 - 20)
-        obstacle.physicsBody = SKPhysicsBody(rectangleOf: obstacle.size)
+        obstacle.physicsBody = SKPhysicsBody(circleOfRadius: obstacle.size.width / 2)
         obstacle.physicsBody?.isDynamic = false
         obstacle.physicsBody?.affectedByGravity = false
         obstacle.physicsBody?.categoryBitMask = 2
@@ -121,6 +170,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cloud.run(sequence)
     }
     
+    func spawnTerrain() {
+        let image = SKTexture(imageNamed: "terrain")
+        
+        let terrain = SKSpriteNode(texture: image, size: CGSize(width: size.width, height: 320))
+//        terrain.position = CGPoint(x: size.width, y: grass.position.y)
+        terrain.position = CGPoint(x: firstTerrain ? 0 : size.width, y: grass.position.y)
+        terrain.physicsBody = SKPhysicsBody(rectangleOf: terrain.size)
+        terrain.physicsBody?.isDynamic = false
+        terrain.physicsBody?.affectedByGravity = false
+        terrain.physicsBody?.categoryBitMask = 10
+        terrain.physicsBody?.restitution = 0.0
+        terrain.zPosition = -1
+        addChild(terrain)
+        
+        
+        // Move terrain from its spawn position to the left side of the screen
+        let moveLeft = SKAction.moveBy(x: -1200, y: 0, duration: 4)
+        let remove = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([moveLeft, remove])
+        terrain.run(sequence)
+        firstTerrain = false
+    }
+    
+    func spawnInitialTerrain() {
+        let image = SKTexture(imageNamed: "terrain")
+        let initialterrain = SKSpriteNode(texture: image, size: CGSize(width: size.width + 12, height: 320))
+        initialterrain.position = CGPoint(x: size.width, y: grass.position.y)
+        initialterrain.physicsBody = SKPhysicsBody(rectangleOf: initialterrain.size)
+        initialterrain.physicsBody?.isDynamic = false
+        initialterrain.physicsBody?.affectedByGravity = false
+        initialterrain.physicsBody?.categoryBitMask = 10
+        initialterrain.physicsBody?.restitution = 0.0
+        initialterrain.zPosition = -1
+        addChild(initialterrain)
+        
+        let moveLeft = SKAction.moveBy(x: -1200, y: 0, duration: 4)
+        let remove = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([moveLeft, remove])
+        initialterrain.run(sequence)
+    }
+    
     
     // Function to make the worm jump
     func jump() {
@@ -131,7 +221,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Function called when a touch begins on the scene
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        jump()
+        if (gameOverBanner.isHidden) {
+            jump()
+        }
+        
+        //handle touches on the home and restart buttons
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNode = atPoint(location)
+            
+            if touchedNode.name == "homeButton" {
+                if let view = self.view {
+                    let sceneSize = view.bounds.size
+                    let scene = MainMenuScene(size: sceneSize)
+                    scene.scaleMode = .aspectFill
+                    scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
+                    view.ignoresSiblingOrder = true
+                    view.showsFPS = true
+                    view.showsNodeCount = true
+                    view.presentScene(scene)
+                }
+            } else if touchedNode.name == "restartButton" {
+                if let view = self.view {
+                    let sceneSize = view.bounds.size
+                    let scene = GameScene(size: sceneSize)
+                    scene.scaleMode = .aspectFill
+                    scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
+                    view.ignoresSiblingOrder = true
+                    view.showsFPS = true
+                    view.showsNodeCount = true
+                    view.presentScene(scene)
+                }
+            }
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -158,6 +280,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func handleGameOver() {
         self.isPaused = true
+        gameOverBanner.isHidden = false
+        homeButton.isHidden = false
+        restartButton.isHidden = false
     }
     
 }
