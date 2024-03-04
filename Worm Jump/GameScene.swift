@@ -370,24 +370,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         // Check if the contact is between the player and the rock obstacle
-//        if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "obstacle" {
-//            // Player collided with an obstacle
-//            if (isHalfed) {
-//                handleGameOver()
-//            } else {
-//                isHalfed = true
-//                if let playerNode = contact.bodyA.node as? SKSpriteNode {
-//                    playerNode.texture = SKTexture(imageNamed: "halfworm")
-//                    playerNode.size = CGSize(width: 55, height: 80)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
-//                       // Excecute after 30 seconds
-//                        self.isHalfed = false
-//                        playerNode.texture = SKTexture(imageNamed: "worm")
-//                        playerNode.size = CGSize(width: 80, height: 80)
-//                    }
-//                }
-//            }
-//        }
+        if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "obstacle" {
+            // Player collided with an obstacle
+            if (isHalfed) {
+                handleGameOver()
+            } else {
+                isHalfed = true
+                if let playerNode = contact.bodyA.node as? SKSpriteNode {
+                    playerNode.texture = SKTexture(imageNamed: "halfworm")
+                    playerNode.size = CGSize(width: 55, height: 80)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+                       // Excecute after 30 seconds
+                        self.isHalfed = false
+                        playerNode.texture = SKTexture(imageNamed: "worm")
+                        playerNode.size = CGSize(width: 80, height: 80)
+                    }
+                }
+            }
+        }
         
         if contact.bodyA.node?.name == "terrainWatchPixel" && contact.bodyB.node?.name == "terrain" {
             spawnTerrain()

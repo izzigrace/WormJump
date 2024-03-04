@@ -116,6 +116,15 @@ class MainMenuScene: SKScene {
     }
     
     func openShop() {
-        
+        if let view = self.view {
+            let sceneSize = view.bounds.size
+            let scene = WormShopScene(size: sceneSize)
+            scene.scaleMode = .aspectFill
+            scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+            view.presentScene(scene)
+        }
     }
 }
