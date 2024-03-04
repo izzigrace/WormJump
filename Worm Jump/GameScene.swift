@@ -17,7 +17,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameOverBanner: SKSpriteNode!
     var homeButton: SKShapeNode!
     var restartButton: SKShapeNode!
-    var terrainWatchPixel: SKShapeNode!
     var isHalfed = false
     var terrainDelay: CGFloat = 1.27
     var terrainDuration: CGFloat = 4
@@ -45,23 +44,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -20)
         
-        //create a repeating action to spawn rocks
-        let spawn = SKAction.run { [weak self] in
-            self?.spawnObstacle()
-        }
-        let delay = SKAction.wait(forDuration: 1.5)
-        let spawnThenDelay = SKAction.sequence([spawn, delay])
-        let spawnForever = SKAction.repeatForever(spawnThenDelay)
-        run(spawnForever)
+        
+        makeObstacleWatcher()
+        spawnObstacle()
+        makePuddleWatcher()
+        spawnPuddle()
+        
         
         //spawn puddles
-        let spawnPuddle = SKAction.run { [weak self] in
-            self?.spawnPuddle()
-        }
-        let delayPuddle = SKAction.wait(forDuration: 1.5)
-        let spawnThenDelayPuddle = SKAction.sequence([spawnPuddle, delayPuddle])
-        let spawnForeverPuddle = SKAction.repeatForever(spawnThenDelayPuddle)
-        run(spawnForeverPuddle)
+//        let spawnPuddle = SKAction.run { [weak self] in
+//            self?.spawnPuddle()
+//        }
+//        let delayPuddle = SKAction.wait(forDuration: 1.5)
+//        let spawnThenDelayPuddle = SKAction.sequence([spawnPuddle, delayPuddle])
+//        let spawnForeverPuddle = SKAction.repeatForever(spawnThenDelayPuddle)
+//        run(spawnForeverPuddle)
         
         //spawn clouds
         let spawnCloud = SKAction.run { [weak self] in
@@ -77,19 +74,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         makeTerrainWatcher()
         spawnTerrain()
         
-        //spawn repeating terrain
-//        let spawnTerrain = SKAction.run { [weak self] in
-//            self?.spawnTerrain()
-//        }
-//        let delayTerrain = SKAction.wait(forDuration: terrainDelay)
-//        let spawnThenDelayTerrain = SKAction.sequence([spawnTerrain, delayTerrain])
-//        let spawnForeverTerrain = SKAction.repeatForever(spawnThenDelayTerrain)
-//        run(spawnForeverTerrain)
-        
-//        let speedTimer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] timer in
-//            self?.terrainDelay *= 0.75
-//            self?.terrainDuration *= 0.75
-//        }
         
         // Create game over banner
         let bannerTexture = SKTexture(imageNamed: "gameover")
@@ -175,15 +159,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func spawnPuddle() {
+        let randomBool = [true, true, true, true, false]
+        let hideOrNot = randomBool[Int(arc4random_uniform(5))]
         let texture = SKTexture(imageNamed: "puddle2")
         let puddle = SKSpriteNode(texture: texture, size: CGSize(width: 130, height: 40))
-        puddle.position = CGPoint(x: size.width + 230, y: grass.position.y + grass.frame.size.height / 2 + puddle.size.height / 2 - 20)
+        puddle.position = CGPoint(x: size.width + size.width / 2, y: grass.position.y + grass.frame.size.height / 2 + puddle.size.height / 2 - 20)
         puddle.physicsBody = SKPhysicsBody(circleOfRadius: puddle.size.width / 2)
         puddle.physicsBody?.isDynamic = false
         puddle.physicsBody?.affectedByGravity = false
         puddle.physicsBody?.categoryBitMask = 2
         puddle.physicsBody?.collisionBitMask = 0
         puddle.physicsBody?.contactTestBitMask = 1
+        puddle.isHidden = false
         puddle.name = "puddle"
         addChild(puddle)
         
@@ -223,9 +210,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         terrain.physicsBody?.isDynamic = false
         terrain.physicsBody?.affectedByGravity = false
         terrain.physicsBody?.restitution = 0.0
-        terrain.physicsBody?.categoryBitMask = 2
+        terrain.physicsBody?.categoryBitMask = 10
         terrain.physicsBody?.collisionBitMask = 0
-        terrain.physicsBody?.contactTestBitMask = 1
+        terrain.physicsBody?.contactTestBitMask = 8
         terrain.zPosition = -1
         terrain.name = "terrain"
         addChild(terrain)
@@ -266,11 +253,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         terrainWatchPixel.physicsBody?.affectedByGravity = false
         terrainWatchPixel.position = CGPoint(x: -size.width / 2 + 5, y: -300)
         terrainWatchPixel.zPosition = 30
-        terrainWatchPixel.physicsBody?.categoryBitMask = 1
-        terrainWatchPixel.physicsBody?.contactTestBitMask = 2
+        terrainWatchPixel.physicsBody?.categoryBitMask = 8
+        terrainWatchPixel.physicsBody?.contactTestBitMask = 10
         terrainWatchPixel.physicsBody?.collisionBitMask = 0
         terrainWatchPixel.name = "terrainWatchPixel"
         addChild(terrainWatchPixel)
+    }
+    func makeObstacleWatcher() {
+        let obstacleWatchPixel = SKShapeNode(rectOf: CGSize(width: 10, height: 10))
+        obstacleWatchPixel.fillColor = .red
+        obstacleWatchPixel.strokeColor = .clear
+        obstacleWatchPixel.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10))
+        obstacleWatchPixel.physicsBody?.isDynamic = true
+        obstacleWatchPixel.physicsBody?.affectedByGravity = false
+        obstacleWatchPixel.position = CGPoint(x: -size.width / 2 + 5, y: -120)
+        obstacleWatchPixel.zPosition = 30
+        obstacleWatchPixel.physicsBody?.categoryBitMask = 1
+        obstacleWatchPixel.physicsBody?.contactTestBitMask = 2
+        obstacleWatchPixel.physicsBody?.collisionBitMask = 0
+        obstacleWatchPixel.name = "obstacleWatchPixel"
+        addChild(obstacleWatchPixel)
+    }
+    func makePuddleWatcher() {
+        let puddleWatchPixel = SKShapeNode(rectOf: CGSize(width: 10, height: 10))
+        puddleWatchPixel.fillColor = .red
+        puddleWatchPixel.strokeColor = .clear
+        puddleWatchPixel.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10))
+        puddleWatchPixel.physicsBody?.isDynamic = true
+        puddleWatchPixel.physicsBody?.affectedByGravity = false
+        puddleWatchPixel.position = CGPoint(x: 0, y: -120)
+        puddleWatchPixel.zPosition = 30
+        puddleWatchPixel.physicsBody?.categoryBitMask = 1
+        puddleWatchPixel.physicsBody?.contactTestBitMask = 2
+        puddleWatchPixel.physicsBody?.collisionBitMask = 0
+        puddleWatchPixel.name = "puddleWatchPixel"
+        addChild(puddleWatchPixel)
     }
     
     
@@ -317,7 +334,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        print("contact detected")
+        
+        if let nodeA = contact.bodyA.node {
+                print("Body A name: \(nodeA.name ?? "Unnamed")")
+            }
+            
+            if let nodeB = contact.bodyB.node {
+                print("Body B name: \(nodeB.name ?? "Unnamed")")
+            }
         // Check if the contact is between the player and the rock obstacle
 //        if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "obstacle" {
 //            // Player collided with an obstacle
@@ -337,22 +361,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                }
 //            }
 //        }
-        
-        if let nodeA = contact.bodyA.node {
-                print("Body A name: \(nodeA.name ?? "Unnamed")")
-            }
-            
-            if let nodeB = contact.bodyB.node {
-                print("Body B name: \(nodeB.name ?? "Unnamed")")
-            }
-        
-        if contact.bodyA.node?.name == "terrain" && contact.bodyB.node?.name == "terrainWatchPixel" {
-            print("terrain touched")
+        if contact.bodyA.node?.name == "terrainWatchPixel" && contact.bodyB.node?.name == "terrain" {
             spawnTerrain()
         }
-        if contact.bodyA.node?.name == "terrainWatchPixel" && contact.bodyB.node?.name == "terrain" {
+        
+        if contact.bodyA.node?.name == "obstacleWatchPixel" && contact.bodyB.node?.name == "obstacle" {
             print("terrain touched")
-            spawnTerrain()
+            spawnObstacle()
+        }
+        if contact.bodyA.node?.name == "puddleWatchPixel" && contact.bodyB.node?.name == "puddle" {
+            print("terrain touched")
+            spawnPuddle()
         }
     }
     
