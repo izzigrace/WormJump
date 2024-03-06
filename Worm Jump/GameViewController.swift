@@ -24,12 +24,12 @@ class GameViewController: UIViewController {
 
         let context = appDelegate.persistentContainer.viewContext
 
-        // Create a new Player object
+        //create a new Player object
         let newPlayer = Player(context: context)
         newPlayer.droplets = 0
         newPlayer.hatsOwned = []
         newPlayer.currentHat = "none"
-        // Save the context
+        //save the context
         do {
             try context.save()
         } catch {

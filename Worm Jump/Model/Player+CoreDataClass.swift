@@ -12,9 +12,8 @@ import CoreData
 @objc(Player)
 public class Player: NSManagedObject {
     
-    //fetch player points
+    //fetch player droplets
     func fetchPlayerDroplets() -> Int16 {
-        // Assuming droplets is an attribute in the Player entity
         return self.droplets ?? 0
     }
     
@@ -28,22 +27,19 @@ public class Player: NSManagedObject {
     
     // fetch players current hat
     func fetchPlayerCurrentHat() -> String? {
-        // Assuming currentHat is an attribute in the Player entity
         guard let currentHat = self.currentHat else {
             return nil
         }
         return currentHat
     }
     
-    // update players points
-    func updatePlayerDroplets(newDroplets: Int) {
-        // Assuming points is an attribute in the Player entity
+    // update players droplets
+    func updatePlayerDroplets(newDroplets: Int16) {
         self.droplets = Int16(newDroplets)
     }
     
     // add a hat to players list of hats
     func addHatToPlayer(hat: String) {
-        // Assuming hatsOwned is an attribute in the Player entity, stored as a string
         var hatsArray = fetchPlayerHats()
         hatsArray.append(hat)
         self.hatsOwned = hatsArray
@@ -51,7 +47,6 @@ public class Player: NSManagedObject {
     
     // update players current hat
     func updatePlayerCurrentHat(newHat: String) {
-        // Assuming currentHat is an attribute in the Player entity
         self.currentHat = newHat
     }
 }

@@ -8,10 +8,8 @@
 import SpriteKit
 import GameplayKit
 
-// Define a new class GameScene which inherits from SKScene (SpriteKit scene) and conforms to SKPhysicsContactDelegate (for physics-related events)
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
-    // Declare a variable to hold the player character (a sprite node)
     var playerSprite: SKSpriteNode!
     var grass: SKShapeNode!
     var terrain: SKSpriteNode!
@@ -20,8 +18,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var restartButton: SKShapeNode!
     var isHalfed = false
     var gameSpeed: CGFloat = 4
+    var location: CGPoint?
+    var splash: SKSpriteNode!
+    var halfSplash: SKSpriteNode!
+    var droplets: SKLabelNode!
+    var dropletIcon: SKSpriteNode!
+    var hatNode: SKSpriteNode!
+    var wormTexture = SKTexture(imageNamed: "worm")
+  
+    var currentHat = "none"
     
-    var player: Player // Store the player object
+    var player: Player //store the player object
     init(size: CGSize, player: Player) {
         self.player = player
         super.init(size: size)
@@ -32,17 +39,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    // Function called when the scene is presented in a view
+    //function called when the scene is presented in a view
     override func didMove(to view: SKView) {
-        
-        print()
         
         backgroundColor = UIColor(named: "sky")!
  
         physicsWorld.contactDelegate = self
         
+        //setting the texture for player to use depending on which hat (if any) is selected
+        currentHat = player.fetchPlayerCurrentHat()!
+        if currentHat == "none" {
+            wormTexture = SKTexture(imageNamed: "worm")
+        }
+        if currentHat == "cap" {
+            wormTexture = SKTexture(imageNamed: "wormcap")
+        }
+        if currentHat == "bow" {
+            wormTexture = SKTexture(imageNamed: "wormbow")
+        }
+        if currentHat == "sprout" {
+            wormTexture = SKTexture(imageNamed: "wormsprout")
+        }
+        if currentHat == "catears" {
+            wormTexture = SKTexture(imageNamed: "wormcatears")
+        }
         
         createPlayer()
+        //making the "grass", a square that wont move like the terrain or obstacles, but stay in place for the player to jump on
         grass = SKShapeNode(rectOf: CGSize(width: size.width, height: 300))
         grass.fillColor = UIColor(named: "grass")!
         grass.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 300))
@@ -56,14 +79,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         grass.name = "grass"
         addChild(grass)
         
+        //setting worlds gravity
         physicsWorld.gravity = CGVector(dx: 0, dy: -20)
+        
+        //display running count of collected droplets
+        droplets = SKLabelNode(fontNamed: "Arial")
+        droplets.text = "\(player.fetchPlayerDroplets())"
+        droplets.fontSize = 24
+        droplets.position = CGPoint(x: size.width / 2 - 70, y: size.height / 2 - 80)
+        addChild(droplets)
+        let dropletTexture = SKTexture(imageNamed: "whitedrop")
+        dropletIcon = SKSpriteNode(texture: dropletTexture, size: CGSize(width: 30, height: 30))
+        dropletIcon.position = CGPoint(x: size.width / 2 - 30, y: size.height / 2 - 70)
+        addChild(dropletIcon)
         
         
         makeObstacleWatcher()
         spawnObstacle()
         spawnPuddle()
         
-        //spawn clouds
+        //spawn clouds repeatedly
         let spawnCloud = SKAction.run { [weak self] in
             self?.spawnClouds()
         }
@@ -72,17 +107,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spawnForeverCloud = SKAction.repeatForever(spawnThenDelayCloud)
         run(spawnForeverCloud)
         
-        //spawn initial terrain
+        //spawn terrain
         spawnInitialTerrain()
         makeTerrainWatcher()
         spawnTerrain()
         
+        //create splash that shows when player splashes in puddle, one for when the worm is full length and one for when the worm is halfed
+        let splashTexture = SKTexture(imageNamed: "splash")
+        splash = SKSpriteNode(texture: splashTexture, size: CGSize(width: 95, height: 80))
+        splash.position = .init(x: -100, y: -95)
+        splash.zPosition = 20
+        splash.physicsBody = nil
+        addChild(splash)
+        splash.isHidden = true
+        let halfSplashTexture = SKTexture(imageNamed: "halfsplash")
+        halfSplash = SKSpriteNode(texture: halfSplashTexture, size: CGSize(width: 100, height: 80))
+        halfSplash.position = .init(x: -110, y: -95)
+        halfSplash.zPosition = 18
+        halfSplash.physicsBody = nil
+        addChild(halfSplash)
+        halfSplash.isHidden = true
         
-        // Create game over banner
+        
+        //create game over banner with buttons to restart the game or return to home screen
         let bannerTexture = SKTexture(imageNamed: "gameover")
         gameOverBanner = SKSpriteNode(texture: bannerTexture, size: CGSize(width: 300, height: 300))
         gameOverBanner.position = CGPoint(x: 0, y: 0)
-        gameOverBanner.zPosition = 12
+        gameOverBanner.zPosition = 50
         gameOverBanner.isHidden = true
         gameOverBanner.physicsBody = nil
         addChild(gameOverBanner)
@@ -94,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         homeButton.physicsBody?.isDynamic = false
         homeButton.physicsBody?.affectedByGravity = false
         homeButton.position = CGPoint(x: -55, y: -50)
-        homeButton.zPosition = 15
+        homeButton.zPosition = 100
         homeButton.name = "homeButton"
         homeButton.isHidden = true
         homeButton.physicsBody = nil
@@ -107,14 +158,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         restartButton.physicsBody?.isDynamic = false
         restartButton.physicsBody?.affectedByGravity = false
         restartButton.position = CGPoint(x: 52, y: -50)
-        restartButton.zPosition = 15
+        restartButton.zPosition = 100
         restartButton.name = "restartButton"
         restartButton.isHidden = true
         restartButton.physicsBody = nil
         addChild(restartButton)
         
         
-        //increase games speed every 10 seconds
+        //increase games speed every 10 seconds - this will be implemented better in the future, but not including this at the moment
 //        let increaseSpeedAction = SKAction.run {
 //            self.increaseGameSpeed()
 //        }
@@ -129,39 +180,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    // Function to create the player character
+    //function to create the player character
     func createPlayer() {
-        let playerTexture = SKTexture(imageNamed: "worm")
-        playerSprite = SKSpriteNode(texture: playerTexture, size: CGSize(width: 80, height: 80))
+        playerSprite = SKSpriteNode(texture: wormTexture, size: CGSize(width: 80, height: 80))
         playerSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         playerSprite.position = .init(x: -100, y: 0)
         playerSprite.zPosition = 10
         addChild(playerSprite)
-        // Create a physics body for the player with a rectangle of its size
+        //create a physics body for the player with a rectangle of its size
         playerSprite.physicsBody = SKPhysicsBody(rectangleOf: playerSprite.size)
-        // Allow the player to move due to physics simulation
+        //allow the player to move due to physics simulation
         playerSprite.physicsBody?.isDynamic = true
         playerSprite.physicsBody?.restitution = 0.0
         
-        // Assign a category bitmask to the player (used for collisions)
+        //assign a category bitmask to the player (used for collisions)
         playerSprite.physicsBody?.categoryBitMask = 1
-        // specify which other physics bodies the player should notify upon contact (here, obstacles)
+        //specify which other physics bodies the player should notify upon contact (here, obstacles)
         playerSprite.physicsBody?.contactTestBitMask = 2
-        // specify which categories of physics bodies the player should collide with (here: grass)
+        //specify which categories of physics bodies the player should collide with (here, grass)
         playerSprite.physicsBody?.collisionBitMask = 1
         playerSprite.name = "player"
     }
     
+    //not being used at the moment
     func increaseGameSpeed() {
         let newDuration = gameSpeed - 0.001
-        
-//        if let movingAction = self.terrain.action(forKey: "movingScene") {
-//            self.terrain.removeAction(forKey: "movingScene")
-//            let moveLeft = SKAction.moveBy(x: -1200, y: 0, duration: self.gameSpeed)
-//            let remove = SKAction.removeFromParent()
-//            let sequence = SKAction.sequence([moveLeft, remove])
-//            self.terrain.run(sequence, withKey: "movingScene")
-//        }
         for case let node as SKSpriteNode in children where node.name == "terrain" {
             if let movingAction = node.action(forKey: "movingScene") {
                 let moveLeft = SKAction.moveBy(x: -1200, y: 0, duration: newDuration)
@@ -175,6 +218,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameSpeed -= 0.1
     }
     
+    //spawn a randomly chosen obstacle and move it across the screen, then remove it
     func spawnObstacle() {
         let obstacles = ["rock1", "rock2", "rock3", "flower"]
         let randomImage = obstacles[Int(arc4random_uniform(4))]
@@ -197,6 +241,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         obstacle.run(sequence, withKey: "movingScene")
     }
     
+    //spawn a puddle with a random isHidden value to make them randomly occuring, and move it across the screen, then remove it
     func spawnPuddle() {
         let randomBool = [true, true, true, true, false]
         let hideOrNot = randomBool[Int(arc4random_uniform(5))]
@@ -220,6 +265,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         puddle.run(sequence, withKey: "movingScene")
     }
     
+    //spawn clouds, move across screen, remove
     func spawnClouds() {
         let heights = [300, 350, 400, 450, 460, 480, 500, 525, 540, 550]
         let randomHeight = heights[Int(arc4random_uniform(10))]
@@ -240,6 +286,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cloud.run(sequence)
     }
     
+    //spawn terrain, move across the screen, then remove
     func spawnTerrain() {
         let image = SKTexture(imageNamed: "terrain")
         
@@ -264,6 +311,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         terrain.run(sequence, withKey: "movingTerrain")
     }
     
+    //spawn the first bit of terrain when game is started, move across the screen then remove
     func spawnInitialTerrain() {
         let image = SKTexture(imageNamed: "terrain")
         let initialterrain = SKSpriteNode(texture: image, size: CGSize(width: size.width + 60, height: 320))
@@ -282,8 +330,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initialterrain.run(sequence)
     }
     
+    //making a shape node to watch for collisions with terrain so i can respawn another terrain when it hits 0,0. this can hopefully allow for speeding up the terrain movement without changing the amount of space between each terrain spawn
     func makeTerrainWatcher() {
-        //making a 1x1 pixel at 0,0 to watch for collisions with terrain so i can respawn another terrain when it hits 0,0. this can allow for speeding up the terrain movement without changing the amount of space between each terrain spawn
         let terrainWatchPixel = SKShapeNode(rectOf: CGSize(width: 10, height: 1))
         terrainWatchPixel.fillColor = .clear
         terrainWatchPixel.strokeColor = .clear
@@ -298,6 +346,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         terrainWatchPixel.name = "terrainWatchPixel"
         addChild(terrainWatchPixel)
     }
+    //making a shape node atto watch for collisions with obstacles so i can respawn another obstacle when it hits the end of the screen
     func makeObstacleWatcher() {
         let obstacleWatchPixel = SKShapeNode(rectOf: CGSize(width: 1, height: 10))
         obstacleWatchPixel.fillColor = .red
@@ -315,22 +364,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    // Function to make the worm jump
+    //function to make the worm jump
     func jump() {
         if (playerSprite.intersects(grass)) {
             playerSprite.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 350))
         }
     }
     
-    // Function called when a touch begins on the scene
+    //function called when a touch begins on the scene
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if (gameOverBanner.isHidden) {
-            jump()
-        }
         //handle touches on the home and restart buttons
         for touch in touches {
-            let location = touch.location(in: self)
-            let touchedNode = atPoint(location)
+            location = touch.location(in: self)
+            let touchedNode = atPoint(location!)
             
             if touchedNode.name == "homeButton" {
                 if let view = self.view {
@@ -357,37 +403,85 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }        }
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let initialTouchPosition = self.location else {
+            return
+        }
+
+        // check for swipe down, if no swipe down occured call jump function. else, if swipe down occured while player is in contact with a puddle, display a splash or half splash depending on if worm if halfed, for 0.15 seconds. and also increase the players droplet count by one
+        if let touch = touches.first {
+            let finalTouchPosition = touch.location(in: self)
+            let deltaY = finalTouchPosition.y - initialTouchPosition.y
+
+            if abs(deltaY) < 10 {
+                if (gameOverBanner.isHidden) {
+                    jump()
+                }
+            } else if deltaY < -50 {
+                if let playerNode = playerSprite {
+                    let playerBody = playerNode.physicsBody
+                    if let contactedBodies = playerBody?.allContactedBodies() {
+                        for contactedBody in contactedBodies {
+                            if let contactedNode = contactedBody.node {
+                                if contactedNode.name == "puddle" {
+                                    let newPlayerDroplets = player.fetchPlayerDroplets() + 1
+                                    player.updatePlayerDroplets(newDroplets: newPlayerDroplets)
+                                    if isHalfed {
+                                        halfSplash.isHidden = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                            self.halfSplash.isHidden = true
+                                        }
+                                    } else {
+                                        splash.isHidden = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                                            self.splash.isHidden = true
+                                        }
+                                    }
+                                    droplets.text = "\(player.fetchPlayerDroplets())"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        self.location = nil
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        
-//        if let nodeA = contact.bodyA.node {
-//            print("Body A name: \(nodeA.name ?? "Unnamed")")
-//        }
-//            
-//        if let nodeB = contact.bodyB.node {
-//            print("Body B name: \(nodeB.name ?? "Unnamed")")
-//        }
-        
-        
-        // Check if the contact is between the player and the rock obstacle
+        //check if the contact is between the player and the rock obstacle. if it was, and the player was already in half, we call the handle game over fucntion. if it was and the player was not halfed, we make them halfed by changing the is halfed value to true, and changing the player icon to the halfed worm with the current hat (if any)
         if contact.bodyA.node?.name == "player" && contact.bodyB.node?.name == "obstacle" {
-            // Player collided with an obstacle
             if (isHalfed) {
                 handleGameOver()
             } else {
                 isHalfed = true
                 if let playerNode = contact.bodyA.node as? SKSpriteNode {
-                    playerNode.texture = SKTexture(imageNamed: "halfworm")
-                    playerNode.size = CGSize(width: 55, height: 80)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+                    if currentHat == "none" {
+                        playerNode.texture = SKTexture(imageNamed: "halfworm")
+                    }
+                    if currentHat == "cap" {
+                        playerNode.texture = SKTexture(imageNamed: "halfwormcap")
+                    }
+                    if currentHat == "bow" {
+                        playerNode.texture = SKTexture(imageNamed: "halfwormbow")
+                    }
+                    if currentHat == "sprout" {
+                        playerNode.texture = SKTexture(imageNamed: "halfwormsprout")
+                    }
+                    if currentHat == "catears" {
+                        playerNode.texture = SKTexture(imageNamed: "halfwormcatears")
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
                        // Excecute after 30 seconds
                         self.isHalfed = false
-                        playerNode.texture = SKTexture(imageNamed: "worm")
-                        playerNode.size = CGSize(width: 80, height: 80)
+                        playerNode.texture = self.wormTexture
                     }
                 }
             }
         }
         
+        //if terrain comes in contact with the pixel that watches for terrain collisions, we call spawn terrain again. this makes an endless loop
         if contact.bodyA.node?.name == "terrainWatchPixel" && contact.bodyB.node?.name == "terrain" {
             spawnTerrain()
         }
@@ -395,12 +489,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spawnTerrain()
         }
         
+        //if obstacle comes in contact with obstacle watcher node, we spawn another obstacle
         if contact.bodyA.node?.name == "obstacleWatchPixel" && contact.bodyB.node?.name == "obstacle" {
             spawnObstacle()
             spawnPuddle()
         }
     }
     
+    //if the game is over, we display the game over banner, home button, and restart button
     func handleGameOver() {
         self.isPaused = true
         gameOverBanner.isHidden = false
