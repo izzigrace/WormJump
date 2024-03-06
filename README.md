@@ -26,4 +26,4 @@
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/worm-jump.git
+   git clone https://github.com/izzigrace/WormJump.git
