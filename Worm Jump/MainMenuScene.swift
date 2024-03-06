@@ -17,6 +17,16 @@ class MainMenuScene: SKScene {
     var instructions: SKSpriteNode!
     var xOutInstructions: SKShapeNode!
     
+    var player: Player // Store the player object
+    init(size: CGSize, player: Player) {
+        self.player = player
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didMove(to view: SKView) {
         backgroundColor = UIColor(named: "sky")!
         //disable gravity for the whole scene
@@ -105,7 +115,7 @@ class MainMenuScene: SKScene {
     func startGame() {
         if let view = self.view {
             let sceneSize = view.bounds.size
-            let scene = GameScene(size: sceneSize)
+            let scene = GameScene(size: sceneSize, player: player)
             scene.scaleMode = .aspectFill
             scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
             view.ignoresSiblingOrder = true
@@ -117,8 +127,7 @@ class MainMenuScene: SKScene {
     
     func openShop() {
         if let view = self.view {
-            let sceneSize = view.bounds.size
-            let scene = WormShopScene(size: sceneSize)
+            let scene = WormShopScene(size: view.bounds.size, player: player)
             scene.scaleMode = .aspectFill
             scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
             view.ignoresSiblingOrder = true

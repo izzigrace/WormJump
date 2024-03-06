@@ -8,6 +8,7 @@
 import Foundation
 import SpriteKit
 import GameplayKit
+import CoreData
 
 class WormShopScene: SKScene {
     var capButton: SKSpriteNode!
@@ -20,8 +21,27 @@ class WormShopScene: SKScene {
     var price3: SKSpriteNode!
     var price4: SKSpriteNode!
     
+    var player: Player // Store the player object
+        
+        init(size: CGSize, player: Player) {
+            self.player = player
+            super.init(size: size)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    
     override func didMove(to view: SKView) {
+                
+        // Fetching player droplets
+        let playerDroplets = player.fetchPlayerDroplets()
+        print("hi", playerDroplets)
+        
+        
         backgroundColor = UIColor(named: "shop")!
+        
+        
         //disable gravity for the whole scene
         physicsWorld.gravity = CGVector.zero
 
@@ -137,7 +157,7 @@ class WormShopScene: SKScene {
     func goToMenu() {
         if let view = self.view {
             let sceneSize = view.bounds.size
-            let scene = MainMenuScene(size: sceneSize)
+            let scene = MainMenuScene(size: view.bounds.size, player: player)
             scene.scaleMode = .aspectFill
             scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
             view.ignoresSiblingOrder = true

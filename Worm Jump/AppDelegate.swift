@@ -14,13 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     lazy var persistentContainer: NSPersistentContainer = {
-            let container = NSPersistentContainer(name: "GameModel") // Name should match your data model file
-            container.loadPersistentStores { (storeDescription, error) in
-                if let error = error {
-                    fatalError("Failed to load persistent stores: \(error)")
-                }
+        let container = NSPersistentContainer(name: "GameModel")
+        container.loadPersistentStores { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Failed to load persistent stores: \(error)")
             }
-            return container
+        }
+        return container
     }()
 
 

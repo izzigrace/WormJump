@@ -12,7 +12,7 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
     // Declare a variable to hold the player character (a sprite node)
-    var player: SKSpriteNode!
+    var playerSprite: SKSpriteNode!
     var grass: SKShapeNode!
     var terrain: SKSpriteNode!
     var gameOverBanner: SKSpriteNode!
@@ -21,9 +21,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isHalfed = false
     var gameSpeed: CGFloat = 4
     
+    var player: Player // Store the player object
+    init(size: CGSize, player: Player) {
+        self.player = player
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     // Function called when the scene is presented in a view
     override func didMove(to view: SKView) {
+        
+        print()
+        
         backgroundColor = UIColor(named: "sky")!
  
         physicsWorld.contactDelegate = self
@@ -102,55 +115,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //increase games speed every 10 seconds
-        let increaseSpeedAction = SKAction.run {
-            self.increaseGameSpeed()
-        }
-
+//        let increaseSpeedAction = SKAction.run {
+//            self.increaseGameSpeed()
+//        }
+        
 //        let wait = SKAction.wait(forDuration: 1)
 //        let sequence = SKAction.sequence([increaseSpeedAction, wait])
 //        let repeatSequence = SKAction.repeat(sequence, count: 20)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.run(increaseSpeedAction)
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            self.run(increaseSpeedAction)
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
-            self.run(increaseSpeedAction)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-            self.run(increaseSpeedAction)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 25) {
-            self.run(increaseSpeedAction)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//            self.run(repeatSequence)
+//        }
         
     }
     
     // Function to create the player character
     func createPlayer() {
         let playerTexture = SKTexture(imageNamed: "worm")
-        player = SKSpriteNode(texture: playerTexture, size: CGSize(width: 80, height: 80))
-        player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        player.position = .init(x: -100, y: 0)
-        player.zPosition = 10
-        addChild(player)
+        playerSprite = SKSpriteNode(texture: playerTexture, size: CGSize(width: 80, height: 80))
+        playerSprite.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        playerSprite.position = .init(x: -100, y: 0)
+        playerSprite.zPosition = 10
+        addChild(playerSprite)
         // Create a physics body for the player with a rectangle of its size
-        player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+        playerSprite.physicsBody = SKPhysicsBody(rectangleOf: playerSprite.size)
         // Allow the player to move due to physics simulation
-        player.physicsBody?.isDynamic = true
-        player.physicsBody?.restitution = 0.0
+        playerSprite.physicsBody?.isDynamic = true
+        playerSprite.physicsBody?.restitution = 0.0
         
         // Assign a category bitmask to the player (used for collisions)
-        player.physicsBody?.categoryBitMask = 1
+        playerSprite.physicsBody?.categoryBitMask = 1
         // specify which other physics bodies the player should notify upon contact (here, obstacles)
-        player.physicsBody?.contactTestBitMask = 2
+        playerSprite.physicsBody?.contactTestBitMask = 2
         // specify which categories of physics bodies the player should collide with (here: grass)
-        player.physicsBody?.collisionBitMask = 1
-        player.name = "player"
+        playerSprite.physicsBody?.collisionBitMask = 1
+        playerSprite.name = "player"
     }
     
     func increaseGameSpeed() {
@@ -318,8 +317,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Function to make the worm jump
     func jump() {
-        if (player.intersects(grass)) {
-            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 350))
+        if (playerSprite.intersects(grass)) {
+            playerSprite.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 350))
         }
     }
     
@@ -336,7 +335,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if touchedNode.name == "homeButton" {
                 if let view = self.view {
                     let sceneSize = view.bounds.size
-                    let scene = MainMenuScene(size: sceneSize)
+                    let scene = MainMenuScene(size: view.bounds.size, player: player)
                     scene.scaleMode = .aspectFill
                     scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
                     view.ignoresSiblingOrder = true
@@ -347,7 +346,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if touchedNode.name == "restartButton" {
                 if let view = self.view {
                     let sceneSize = view.bounds.size
-                    let scene = GameScene(size: sceneSize)
+                    let scene = GameScene(size: sceneSize, player: player)
                     scene.scaleMode = .aspectFill
                     scene.anchorPoint = CGPoint(x: 0.5, y: 0.5) // Center the scene content
                     view.ignoresSiblingOrder = true
@@ -397,7 +396,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if contact.bodyA.node?.name == "obstacleWatchPixel" && contact.bodyB.node?.name == "obstacle" {
-            print("terrain touched")
             spawnObstacle()
             spawnPuddle()
         }
